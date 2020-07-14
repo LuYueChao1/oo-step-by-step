@@ -1,8 +1,8 @@
 package com.thoughtworks.basic;
 
 public class Person {
-    private String name;
-    private  int age;
+    public String name;
+    public  int age;
     Person(String name, int age){
         this.name=name;
         this.age=age;
