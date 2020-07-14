@@ -6,4 +6,7 @@ public class Teacher extends Person {
         super(name,age);
         this.job=job;
     }
+    public  String  introduce(){
+        return "My name is "+this.name+"."+" I am "+this.age+" years old."+" I am a "+this.job+".";
+    }
 }
