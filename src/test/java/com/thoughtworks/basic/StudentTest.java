@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 public class StudentTest {
     @Test
-    public void given_a_student_named_Tom_aged_21_classNumber_2_when_introduceSelf_should_get_right_result(){
+    public void given_a_student_named_Tom_aged_21_classNumber_2_when_introduceSelf_should_get_right_result() throws Exception {
         Teacher teacher=new Teacher("Matt",30,"teacher");
         SchoolClass schoolClass=new SchoolClass(teacher,2);
         Student student =new Student("Tom",21,schoolClass);

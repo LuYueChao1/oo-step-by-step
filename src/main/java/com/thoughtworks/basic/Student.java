@@ -2,9 +2,10 @@ package com.thoughtworks.basic;
 
 public class Student extends Person{
     private SchoolClass schoolClass;
-    Student (String name,int age,SchoolClass schoolClass){
+    Student (String name,int age,SchoolClass schoolClass) throws Exception {
         super(name,age);
         this.schoolClass=schoolClass;
+        this.schoolClass.addStudent(this);
     }
     public String introduce(){
         return "My name is "+this.name+"."+" I am "+this.age+" years old."+" I am a Student of Class "+this.schoolClass.classNumber;
