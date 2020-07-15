@@ -11,24 +11,52 @@ import static org.mockito.Mockito.when;
 
 public class SchoolClassTest {
     @Test
-    public void given_a_schoolClass_should_contain_many_student_one_teacher(){
-
-        List<Student> studentList=new ArrayList<Student>();
+    public void given_a_schoolClass_should_contain_many_student_one_teacher() throws Exception {
         Teacher teacherMatt=new Teacher("Matt",30,"teacher");
-        SchoolClass schoolClass=new SchoolClass(studentList,teacherMatt,1);
+        SchoolClass schoolClass=new SchoolClass(teacherMatt,1);
         Student studentXiaoming=new Student("studentXiaoming",12,schoolClass);
         Student studentXiaoqiang=new Student("studentXiaoqiang",13,schoolClass);
-        studentList.add(studentXiaoming);
-        studentList.add(studentXiaoqiang);
-        assertEquals(studentList,schoolClass.getStudentList());
+        schoolClass.addStudent(studentXiaoming);
+        schoolClass.addStudent(studentXiaoqiang);
         assertEquals(teacherMatt,schoolClass.getTeacher());
     }
     @Test
     public void given_a_student_his_class_should_be_object(){
-        List<Student> studentList=new ArrayList<Student>();
         Teacher teacher=new Teacher("Matt",30,"teacher");
-        SchoolClass schoolClass=new SchoolClass(studentList,teacher,1);
+        SchoolClass schoolClass=new SchoolClass(teacher,1);
         Student studentXiaoming=new Student("studentXiaoming",12,schoolClass);
         assertEquals(true,studentXiaoming.getSchoolClass() instanceof SchoolClass);
+    }
+
+    @Test
+    public void given_a_student_when_change_name_tell_classmates_and_teacher() throws Exception {
+        Teacher teacher=new Teacher("Matt",30,"teacher");
+        SchoolClass schoolClass=new SchoolClass(teacher,1);
+        Student studentXiaoming=new Student("studentXiaoming",12,schoolClass);
+        Student studentXiaoqiang=new Student("studentXiaoqiang",13,schoolClass);
+        schoolClass.addStudent(studentXiaoming);
+        schoolClass.addStudent(studentXiaoqiang);
+        studentXiaoming.changeName("newXiaoming");
+        assertEquals("My name has been changed from studentXiaoming to newXiaoming",studentXiaoqiang.getAcceptedMessage());
+        assertEquals("My name has been changed from studentXiaoming to newXiaoming",teacher.getAcceptedMessage());
+    }
+
+    @Test
+    public void given_a_student_when_change_class_should_tell_new_and_old_classmates_teacher() throws Exception {
+        Teacher teacher1=new Teacher("Matt",30,"teacher");
+        Teacher teacher2=new Teacher("Mark",25,"teacher");
+        SchoolClass schoolClass1=new SchoolClass(teacher1,1);
+        SchoolClass schoolClass2=new SchoolClass(teacher2,2);
+        Student studentXiaoming=new Student("studentXiaoming",12,schoolClass1);
+        Student studentXiaoqiang=new Student("studentXiaoqiang",13,schoolClass1);
+        Student studentXiaohong=new Student("studentXiaoming",12,schoolClass2);
+        Student studentXiaoxiao=new Student("studentXiaoqiang",13,schoolClass2);
+        schoolClass1.addStudent(studentXiaoming);
+        schoolClass1.addStudent(studentXiaoqiang);
+        schoolClass2.addStudent(studentXiaohong);
+        schoolClass2.addStudent(studentXiaoxiao);
+        studentXiaoming.changeClass(schoolClass2);
+        assertEquals("My name is Tom. I am 21 years old. I will be a student of Class 2",studentXiaoqiang.getAcceptedMessage());
+        assertEquals("My name is Tom. I am 21 years old. I am a student of Class 2 now.",studentXiaohong.getAcceptedMessage());
     }
 }
